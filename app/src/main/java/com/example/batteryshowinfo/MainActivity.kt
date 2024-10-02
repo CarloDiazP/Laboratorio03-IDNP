@@ -82,7 +82,17 @@ class MainActivity : AppCompatActivity(), BatteryListener {
                 isCharging -> "El dispositivo está cargando"
                 else -> "El dispositivo no está cargando"
             }
-
+        batteryImage.setImageResource(
+            when {
+                batteryPct.toInt() == 0 -> R.drawable.baseline_battery_0_bar_24
+                batteryPct.toInt() in 1..20 -> R.drawable.baseline_battery_2_bar_24
+                batteryPct.toInt() in 21 .. 40 -> R.drawable.baseline_battery_3_bar_24
+                batteryPct.toInt() in 41 .. 60 -> R.drawable.baseline_battery_4_bar_24
+                batteryPct.toInt() in 61 .. 80 -> R.drawable.baseline_battery_5_bar_24
+                batteryPct.toInt() in 81 .. 99 -> R.drawable.baseline_battery_6_bar_24
+                else -> R.drawable.baseline_battery_full_24
+            }
+        )
         this.energySourceBattery.text = energySourceBattery
         percentageBattery.text = "${batteryPct.toInt()}%"
         generalStateBattery.text = batteryState
