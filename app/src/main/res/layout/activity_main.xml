@@ -192,7 +192,7 @@
                         android:gravity="center"
                         android:text="Lleno"
                         android:textColor="#fff"
-                        android:textSize="25dp"
+                        android:textSize="20sp"
                         android:textStyle="bold">
 
                     </TextView>
