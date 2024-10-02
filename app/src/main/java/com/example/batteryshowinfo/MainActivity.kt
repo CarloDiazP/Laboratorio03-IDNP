@@ -5,6 +5,8 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.batteryshowinfo.databinding.ActivityMainBinding
 
@@ -16,12 +18,12 @@ class MainActivity : AppCompatActivity(), BatteryListener {
     private val STATE_APP = "StateAppMainActivity"
 
     // Variables interfaz
-    private var currentStateBattery = binding.currentStateBattery
-    private var energySourceBattery = binding.energySourceBattery
-    private var percentageBattery = binding.percentageBattery
-    private var batteryImage = binding.batteryImage
-    private var generalStateBattery = binding.generalStateBattery
-    private var temperatureBattery = binding.temperatureBattery
+    private lateinit var currentStateBattery: TextView
+    private lateinit var energySourceBattery: TextView
+    private lateinit var percentageBattery: TextView
+    private lateinit var batteryImage: ImageView
+    private lateinit var generalStateBattery: TextView
+    private lateinit var temperatureBattery: TextView
     // batteryImage.setImageResource(R.drawable.baseline_battery_0_bar_24)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,12 @@ class MainActivity : AppCompatActivity(), BatteryListener {
         val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in_and_translate)
         mainLayout.startAnimation(animation)
 
-
+        currentStateBattery = binding.currentStateBattery
+        energySourceBattery = binding.energySourceBattery
+        percentageBattery = binding.percentageBattery
+        batteryImage = binding.batteryImage
+        generalStateBattery = binding.generalStateBattery
+        temperatureBattery = binding.temperatureBattery
 
     }
 
@@ -70,14 +77,16 @@ class MainActivity : AppCompatActivity(), BatteryListener {
         batteryState: String,
         batteryTemperature: Int
     ) {
+        currentStateBattery.text =
+            when {
+                isCharging -> "El dispositivo está cargando"
+                else -> "El dispositivo no está cargando"
+            }
 
-        val batteryInfo = """
-            Cargando: $isCharging
-            Tipo de carga: $energySourceBattery
-            Porcentaje de batería: $batteryPct%
-            Estado batería: $batteryState
-            Temperatura: $batteryTemperature °C
-        """
-        // Log.d("MainActivityShowInfo", batteryInfo)
+        this.energySourceBattery.text = energySourceBattery
+        percentageBattery.text = "${batteryPct.toInt()}%"
+        generalStateBattery.text = batteryState
+        temperatureBattery.text = "$batteryTemperature °C"
+
     }
 }
