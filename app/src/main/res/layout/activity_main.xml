@@ -50,6 +50,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/currentStateBattery"
                         android:layout_width="150dp"
                         android:layout_height="45dp"
                         android:gravity="center"
@@ -86,6 +87,7 @@
                     </TextView>
 
                     <TextView
+                        android:id="@+id/energySourceBattery"
                         android:layout_width="150dp"
                         android:layout_height="45dp"
                         android:gravity="center"
@@ -131,7 +133,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/percentageBattery"
                         android:layout_width="150dp"
                         android:layout_height="90dp"
                         android:gravity="center"
@@ -183,6 +185,7 @@
                     </TextView>
 
                     <TextView
+                        android:id="@+id/generalStateBattery"
                         android:layout_width="150dp"
                         android:layout_height="45dp"
                         android:gravity="center"
@@ -220,6 +223,7 @@
                     </TextView>
 
                     <TextView
+                        android:id="@+id/capacityBattery"
                         android:layout_width="150dp"
                         android:layout_height="45dp"
                         android:gravity="center"
