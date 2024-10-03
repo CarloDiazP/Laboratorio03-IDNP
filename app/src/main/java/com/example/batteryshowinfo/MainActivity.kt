@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), BatteryListener {
     private lateinit var batteryImage: ImageView
     private lateinit var generalStateBattery: TextView
     private lateinit var temperatureBattery: TextView
-    // batteryImage.setImageResource(R.drawable.baseline_battery_0_bar_24)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +35,7 @@ class MainActivity : AppCompatActivity(), BatteryListener {
         val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in_and_translate)
         mainLayout.startAnimation(animation)
 
+        // Se establece conexion con los componentes de la interfaz
         currentStateBattery = binding.currentStateBattery
         energySourceBattery = binding.energySourceBattery
         percentageBattery = binding.percentageBattery
@@ -49,25 +49,26 @@ class MainActivity : AppCompatActivity(), BatteryListener {
         super.onStart()
         Log.d(STATE_APP, "Start")
         // Registrando receiver
-
         batteryReceiver = BatteryReceiver(this)
 
         // Registrar el receiver para obtener la información de la batería
         // Intent proporcionado por documentación de AndroidStudio
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         registerReceiver(batteryReceiver, filter)
-
+        Log.d("ReceiverState", "Registro satisfactorio")
     }
 
     override fun onStop() {
         super.onStop()
         Log.d(STATE_APP, "Stop")
+        Log.d("ReceiverState", "Desregistro satisfactorio")
+        unregisterReceiver(batteryReceiver)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(STATE_APP, "Destroy")
-        unregisterReceiver(batteryReceiver)
+
     }
 
     override fun onBatteryInfoReceived(
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), BatteryListener {
         batteryState: String,
         batteryTemperature: Int
     ) {
+        // Mostrar datos en interfaz
         currentStateBattery.text =
             when {
                 isCharging -> "El dispositivo está cargando"

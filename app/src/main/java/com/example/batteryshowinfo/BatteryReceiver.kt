@@ -22,7 +22,7 @@ class BatteryReceiver(private val listener: BatteryListener) : BroadcastReceiver
 
         // Selecciona el tipo de fuente de carga
         val energySourceBattery = when {
-            // las variables actual como booleano, la que sea tru retornará el string señalado
+            // las variables actuan como booleano, la que sea true retornará el string señalado
             usbCharge -> "USB"
             acCharge -> "AC"
             else -> "No charging"
@@ -45,23 +45,11 @@ class BatteryReceiver(private val listener: BatteryListener) : BroadcastReceiver
             else -> "Desconocido"
         }
 
-        // Obtener temperatura
+        // Obtener temperatura - Se retorna en centesimas de grados por ello se divide sobre 10
         val batteryTemperature: Int = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10
 
-
-        /////////////////////////////////////////////
-        /*
-        val batteryInfo = """
-            Cargando: $isCharging
-            Tipo de carga: $energySourceBattery
-            Porcentaje de batería: $batteryPct%
-            Estado batería: $batteryState
-            Temperatura: $batteryTemperature °C
-        """
-*/
-        // Mostrar la información  de prueba desde Log
+        // Enviar información por el listener a Acitivity
         listener.onBatteryInfoReceived(isCharging, energySourceBattery, batteryPct, batteryState, batteryTemperature)
-        //Log.d("BatteryInfo", batteryInfo)
 
 
     }
