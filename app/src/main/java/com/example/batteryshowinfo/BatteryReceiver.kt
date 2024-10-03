@@ -7,7 +7,7 @@ import android.os.BatteryManager
 import android.util.Log
 import android.widget.Toast
 
-class BatteryReceiver : BroadcastReceiver() {
+class BatteryReceiver(private val listener: BatteryListener) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -50,6 +50,7 @@ class BatteryReceiver : BroadcastReceiver() {
 
 
         /////////////////////////////////////////////
+        /*
         val batteryInfo = """
             Cargando: $isCharging
             Tipo de carga: $energySourceBattery
@@ -57,9 +58,10 @@ class BatteryReceiver : BroadcastReceiver() {
             Estado batería: $batteryState
             Temperatura: $batteryTemperature °C
         """
-
+*/
         // Mostrar la información  de prueba desde Log
-        Log.d("BatteryInfo", batteryInfo)
+        listener.onBatteryInfoReceived(isCharging, energySourceBattery, batteryPct, batteryState, batteryTemperature)
+        //Log.d("BatteryInfo", batteryInfo)
 
 
     }
